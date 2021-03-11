@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# gives user an option to choose which sound output device to use
+
+index=$(pacmd list-sinks | grep 'alsa.card_name\|index' | sed '$!N;s/\n\t\t/ /' | dmenu -fn Hack -l 3 | awk '/[*]/ {print $3} !/[*]/ {print $2}')
+pacmd set-default-sink $index

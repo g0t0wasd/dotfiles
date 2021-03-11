@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if ! tmux has-session -t nametest; then
+    tmux new-session -s nametest -n venv -d
+
+    tmux new-window -t nametest  -n bundle
+    tmux new-window -t nametest  -n code
+
+    tmux send-keys -t nametest:venv "cd ~/work/nametest" Enter
+    tmux send-keys -t nametest:venv "source venv_nametest7/bin/activate;clear" Enter
+
+    tmux send-keys -t nametest:bundle "cd ~/work/nametest" Enter
+    tmux send-keys -t nametest:bundle "npm run dev" Enter
+
+    tmux send-keys -t nametest:code "cd ~/work/nametest" Enter
+    tmux send-keys -t nametest:code "clear" Enter
+
+    tmux select-window -t nametest:venv
+    tmux -u attach -t nametest
+fi
+tmux attach -t nametest
